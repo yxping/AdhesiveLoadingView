@@ -1,10 +1,12 @@
 package com.yxp.loading.lib;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
@@ -13,7 +15,9 @@ import java.util.ArrayList;
 /**
  * Created by yanxing on 16/1/9.
  */
-public class Controller extends ValueAnimator {
+public class Controller {
+    public final static int RABBIT_NUM = 6;
+    public final static int DEGREE_GAP = 360 / RABBIT_NUM;
     private View mView;
     private ArrayList<RabbitCircle> mRabbits = new ArrayList<>();
     private WolfCircle mWolf;
@@ -23,9 +27,10 @@ public class Controller extends ValueAnimator {
     private int centerX;
     private int centerY;
     private int bigR;
-    private float rate = 1.5f;
+    private float rate = 1.2f;
 
     private int mAliveRabbits = 0;
+    private int mRabbitIndex = 0;
     // wolf and rabbit mix when their degree are closing, this is the threshold that they mix
     private int mMixDegree;
 
@@ -50,9 +55,9 @@ public class Controller extends ValueAnimator {
         // create 6 rabbits
         int r = Math.min(mView.getWidth(), mView.getHeight()) / 20;
         int degree = 0;
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < RABBIT_NUM; i++) {
             mRabbits.add(new RabbitCircle(startX, startY, r, degree));
-            degree += 60;
+            degree += DEGREE_GAP;
         }
 
         // create wolf
@@ -62,25 +67,46 @@ public class Controller extends ValueAnimator {
     }
 
     private void initAnimator() {
-        this.setIntValues(0, 360);
-        this.setDuration(2000);
-        this.setRepeatMode(RESTART);
-        this.setRepeatCount(INFINITE);
-        this.setInterpolator(new AccelerateDecelerateInterpolator());
-        this.addUpdateListener(new AnimatorUpdateListener() {
+        final AnimatorSet set = new AnimatorSet();
+
+        ValueAnimator valueAnimator = new ValueAnimator();
+        valueAnimator.setIntValues(0, 360);
+        valueAnimator.setDuration(2000);
+        valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                int degree = (int)animation.getAnimatedValue();
+                int degree = (int) animation.getAnimatedValue();
                 startActivities(degree);
 
                 mView.invalidate();
             }
         });
-        this.start();
+        // for wolf to become small
+        ValueAnimator smallAnimator = ValueAnimator.ofInt(360 / DEGREE_GAP, 0);
+        smallAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int level = (int) animation.getAnimatedValue();
+                mWolf.changeSize(level);
+                mView.invalidate();
+            }
+        });
+        smallAnimator.setDuration(500);
+        set.play(valueAnimator).before(smallAnimator);
+        set.start();
+        set.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                set.start();
+            }
+        });
     }
 
     private void startActivities(int degree) {
         mWolf.runTo(degree);
+
+        mWolf.changeSize(degree / DEGREE_GAP);
 
         for (RabbitCircle rabbit : mRabbits) {
             if (mAliveRabbits < 6 && rabbit.getState() == RabbitCircle.DIED
@@ -94,13 +120,19 @@ public class Controller extends ValueAnimator {
                 int distance = (int) (Math.sin(Math.PI * deg / 180) * bigR);
                 updatePath(distance);
             }
+
+            if (rabbit.getDegree() - mWolf.getDegree() > 0 && rabbit.getDegree() - mWolf.getDegree() < 60) {
+                rabbit.setState(RabbitCircle.DANGER);
+            } else if (rabbit.getState() == RabbitCircle.DANGER) {
+                rabbit.setState(RabbitCircle.ALIVE);
+            }
         }
     }
 
     private void updatePath(int distance){
         mPath.reset();
         int x1 = startX - distance;
-        int y1 = startY - mRabbits.get(0).getRadius() + 1;
+        int y1 = startY - mRabbits.get(0).getRadius() + 2;
 
         int x2 = startX - distance;
         int y2 = startY + mRabbits.get(0).getRadius() - 1;
@@ -112,9 +144,9 @@ public class Controller extends ValueAnimator {
         int y4 = startY - mWolf.getRadius() + 1;
 
         int controlX1T4 = (x1 + x4) / 2;
-        int controlY1T4 = (int) (y1 + (x4 - x1) * 0.5f);
+        int controlY1T4 = (int) (y1 + (x4 - x1) * 0.4f);
         int controlX2T3 = (x2 + x3) / 2;
-        int controlY2T3 = (int) (y2 - (x3 - x2) * 0.5f);
+        int controlY2T3 = (int) (y2 - (x3 - x2) * 0.4f);
 
         mPath.moveTo(x1, y1);
         mPath.lineTo(x2, y2);

@@ -7,6 +7,7 @@ import android.graphics.Paint;
  * Created by yanxing on 16/1/7.
  */
 public class WolfCircle extends Circle {
+    private int mOriginR;
 
     public WolfCircle() {
     }
@@ -17,6 +18,7 @@ public class WolfCircle extends Circle {
 
     public WolfCircle(int x, int y, int r, int degree) {
         super(x, y, r, degree);
+        mOriginR = radius;
     }
 
     public WolfCircle(int x, int y, int r, int degree, int color) {
@@ -38,5 +40,13 @@ public class WolfCircle extends Circle {
         } else {
             this.degree = 0;
         }
+    }
+
+    public void changeSize(int level) {
+        radius = mOriginR + level * 2;
+    }
+
+    public int getOriginR() {
+        return mOriginR;
     }
 }

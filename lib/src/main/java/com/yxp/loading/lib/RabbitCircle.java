@@ -3,6 +3,8 @@ package com.yxp.loading.lib;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import java.util.Random;
+
 /**
  * Created by yanxing on 16/1/7.
  */
@@ -11,6 +13,9 @@ public class RabbitCircle extends Circle {
     public final static int ALIVE = 2;
     public final static int DANGER = 3;
     private int state = DIED;
+    private Random mRandom = new Random();
+    private int mShiftX;
+    private int mShiftY;
 
     public RabbitCircle() {
     }
@@ -29,11 +34,19 @@ public class RabbitCircle extends Circle {
 
     @Override
     public void draw(Canvas canvas, Paint paint, int cx, int cy) {
-        if (state != DIED) {
+        if (state == ALIVE) {
             canvas.save();
             canvas.rotate(degree, cx, cy);
             paint.setColor(color);
             canvas.drawCircle(x, y, radius, paint);
+            canvas.restore();
+        } else if (state == DANGER) {
+            mShiftX = mRandom.nextInt(5) - 2;
+            mShiftY = mRandom.nextInt(5) - 2;
+            canvas.save();
+            canvas.rotate(degree, cx, cy);
+            paint.setColor(color);
+            canvas.drawCircle(x + mShiftX, y + mShiftY, radius, paint);
             canvas.restore();
         }
     }
