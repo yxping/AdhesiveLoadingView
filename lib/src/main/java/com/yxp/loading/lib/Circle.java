@@ -8,23 +8,43 @@ import android.graphics.Paint;
  * Created by yanxing on 16/1/7.
  */
 public abstract class Circle {
-    public final static int defaultColor = Color.parseColor("#00000000");
+    public final static int defaultColor = Color.parseColor("#000000");
 
     protected int x;
     protected int y;
-    protected int r;
+    protected int radius;
     protected int color;
+    // for the canvas's rotation
+    protected int degree;
+
+    public Circle () {
+
+    }
 
     public Circle(int x, int y, int r) {
-        this(x, y, r, defaultColor);
+        this(x, y, r, 0);
     }
 
-    public Circle(int x, int y, int r, int color) {
-
+    public Circle(int x, int y, int r, int degree) {
+        this(x, y, r, degree, defaultColor);
     }
 
-    public void draw(Canvas canvas, Paint patint) {
+    public Circle(int x, int y, int r, int degree, int color) {
+        this.x = x;
+        this.y = y;
+        this.radius = r;
+        this.color = color;
+        this.degree = degree;
     }
 
+    public void draw(Canvas canvas, Paint paint, int cx, int cy) {
+    }
 
+    public int getDegree() {
+        return degree;
+    }
+
+    public int getRadius() {
+        return radius;
+    }
 }

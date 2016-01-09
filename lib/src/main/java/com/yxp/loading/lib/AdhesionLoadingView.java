@@ -15,10 +15,10 @@ import java.util.ArrayList;
  * Created by yanxing on 16/1/7.
  */
 public class AdhesionLoadingView extends View {
-    public final static int DEFAULT_WIDTH = 100;
-    public final static int DEFAULT_HEIGHT = 100;
+    public final static int DEFAULT_WIDTH = 200;
+    public final static int DEFAULT_HEIGHT = 200;
 
-    private ArrayList<Circle> mRabbits = new ArrayList<>();
+    private Controller mController;
     private boolean isInit = false;
     private Paint mPaint;
 
@@ -65,27 +65,28 @@ public class AdhesionLoadingView extends View {
     }
 
     private void init() {
+
         if (isInit) {
             return;
         }
         isInit = true;
-        int r = Math.min(getWidth(), getHeight()) / 10;
-        mRabbits.add(new RabbitCircle(getWidth() / 2, getHeight() / 5, r));
 
-        mRabbits.add(new RabbitCircle(getWidth() / 2, getHeight() * 2 / 5, r));
+        // create Controller
+        mController = new Controller(this);
 
         mPaint = new Paint();
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(Color.BLACK);
+        mPaint.setAntiAlias(true);
+
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.drawCircle(getWidth() / 2, getHeight() / 2, 15, mPaint);
-        for (Circle circle : mRabbits) {
-            circle.draw(canvas, mPaint);
-        }
+        init();
+
+        mController.draw(canvas, mPaint);
     }
 }
