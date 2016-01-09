@@ -71,7 +71,7 @@ public class Controller {
 
         ValueAnimator valueAnimator = new ValueAnimator();
         valueAnimator.setIntValues(0, 360);
-        valueAnimator.setDuration(2000);
+        valueAnimator.setDuration(3000);
         valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -171,6 +171,7 @@ public class Controller {
     }
 
     public void drawPath(Canvas canvas, Paint paint) {
+        paint.setColor(Circle.defaultColor);
         canvas.save();
         canvas.rotate(mPathDegree, centerX, centerY);
         canvas.drawPath(mPath, paint);

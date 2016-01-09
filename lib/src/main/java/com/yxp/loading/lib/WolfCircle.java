@@ -1,13 +1,16 @@
 package com.yxp.loading.lib;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 
 /**
  * Created by yanxing on 16/1/7.
  */
 public class WolfCircle extends Circle {
     private int mOriginR;
+    private int mouthDegree = 0;
 
     public WolfCircle() {
     }
@@ -30,18 +33,31 @@ public class WolfCircle extends Circle {
         canvas.save();
         canvas.rotate(degree, cx, cy);
         paint.setColor(color);
-        canvas.drawCircle(x, y, radius, paint);
+        RectF oval = new RectF(x - radius, y - radius, x + radius, y + radius);// 设置个新的长方形，扫描测量
+        canvas.drawArc(oval, mouthDegree / 2, 360 - mouthDegree, true, paint);
+
+        paint.setColor(Color.WHITE);
+        canvas.drawCircle(x + radius / 3, y - radius / 2, 2, paint);
         canvas.restore();
     }
 
     public void runTo(int degree) {
         if (degree < 360) {
             this.degree = degree;
+            eat(degree);
         } else {
             this.degree = 0;
         }
     }
 
+    public void eat(int degree) {
+        mouthDegree = degree % 59;
+    }
+
+    /**
+     * change the radius to change size
+     * @param level
+     */
     public void changeSize(int level) {
         radius = mOriginR + level * 2;
     }

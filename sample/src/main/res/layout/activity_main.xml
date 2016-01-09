@@ -7,12 +7,17 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.yxp.sample.MainActivity">
+    tools:context="com.yxp.sample.MainActivity"
+    android:orientation="vertical"
+    android:gravity="center">
 
-    <TextView
+    <Button
+        android:id="@+id/btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:gravity="center_horizontal"
+        android:text="Dialog"
+        android:textAllCaps="false"/>
 
     <com.yxp.loading.lib.AdhesionLoadingView
         android:layout_width="wrap_content"
