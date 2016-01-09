@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.view.View;
@@ -71,8 +72,8 @@ public class Controller {
 
         ValueAnimator valueAnimator = new ValueAnimator();
         valueAnimator.setIntValues(0, 360);
-        valueAnimator.setDuration(3000);
-        valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+        valueAnimator.setDuration(6000);
+//        valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -135,18 +136,18 @@ public class Controller {
         int y1 = startY - mRabbits.get(0).getRadius() + 2;
 
         int x2 = startX - distance;
-        int y2 = startY + mRabbits.get(0).getRadius() - 1;
+        int y2 = startY + mRabbits.get(0).getRadius() + 1;
 
         int x3 = startX + distance;
-        int y3 = startY + mWolf.getRadius() - 1;
+        int y3 = startY + mWolf.getRadius() + 1;
 
         int x4 = startX + distance;
-        int y4 = startY - mWolf.getRadius() + 1;
+        int y4 = startY - mWolf.getRadius() + 2;
 
-        int controlX1T4 = (x1 + x4) / 2;
-        int controlY1T4 = (int) (y1 + (x4 - x1) * 0.4f);
-        int controlX2T3 = (x2 + x3) / 2;
-        int controlY2T3 = (int) (y2 - (x3 - x2) * 0.4f);
+        int controlX1T4 = startX;
+        int controlY1T4 = y1 + distance;
+        int controlX2T3 = startX;
+        int controlY2T3 = y2 - distance;
 
         mPath.moveTo(x1, y1);
         mPath.lineTo(x2, y2);
@@ -171,7 +172,8 @@ public class Controller {
     }
 
     public void drawPath(Canvas canvas, Paint paint) {
-        paint.setColor(Circle.defaultColor);
+//        paint.setColor(Color.RED);
+        paint.setColor(Color.BLACK);
         canvas.save();
         canvas.rotate(mPathDegree, centerX, centerY);
         canvas.drawPath(mPath, paint);

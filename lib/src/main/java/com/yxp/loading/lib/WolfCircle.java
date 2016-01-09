@@ -33,18 +33,19 @@ public class WolfCircle extends Circle {
         canvas.save();
         canvas.rotate(degree, cx, cy);
         paint.setColor(color);
-        RectF oval = new RectF(x - radius, y - radius, x + radius, y + radius);// 设置个新的长方形，扫描测量
-        canvas.drawArc(oval, mouthDegree / 2, 360 - mouthDegree, true, paint);
-
-        paint.setColor(Color.WHITE);
-        canvas.drawCircle(x + radius / 3, y - radius / 2, 2, paint);
+        canvas.drawCircle(x, y, radius, paint);
+//        RectF oval = new RectF(x - radius, y - radius, x + radius, y + radius);
+//        canvas.drawArc(oval, mouthDegree / 2, 360 - mouthDegree, true, paint);
+//
+//        paint.setColor(Color.WHITE);
+//        canvas.drawCircle(x + radius / 3, y - radius / 2, 2, paint);
         canvas.restore();
     }
 
     public void runTo(int degree) {
         if (degree < 360) {
             this.degree = degree;
-            eat(degree);
+//            eat(degree);
         } else {
             this.degree = 0;
         }
