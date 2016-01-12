@@ -1,4 +1,4 @@
-package com.yxp.loading.lib;
+package com.yxp.loading.lib.component;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

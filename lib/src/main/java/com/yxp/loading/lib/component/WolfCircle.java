@@ -1,9 +1,7 @@
-package com.yxp.loading.lib;
+package com.yxp.loading.lib.component;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
 
 /**
  * Created by yanxing on 16/1/7.

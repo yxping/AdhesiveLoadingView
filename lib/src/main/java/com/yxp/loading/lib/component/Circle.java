@@ -1,4 +1,4 @@
-package com.yxp.loading.lib;
+package com.yxp.loading.lib.component;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -37,7 +37,22 @@ public abstract class Circle {
         this.degree = degree;
     }
 
+    /**
+     * 提供绕圆心旋转画图
+     * @param canvas
+     * @param paint
+     * @param cx
+     * @param cy
+     */
     public void draw(Canvas canvas, Paint paint, int cx, int cy) {
+    }
+
+    public void draw(Canvas canvas, Paint paint) {
+
+    }
+
+    public void changeSize(int level) {
+
     }
 
     public int getDegree() {
