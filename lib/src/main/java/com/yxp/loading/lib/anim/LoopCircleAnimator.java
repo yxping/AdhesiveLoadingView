@@ -86,7 +86,7 @@ public class LoopCircleAnimator extends ValueAnimator {
     private void startActivities(int degree) {
         mWolf.runTo(degree);
 
-        mWolf.changeSize(degree / Config.DEGREE_GAP);
+        mWolf.bigger(degree / Config.DEGREE_GAP * 2);
 
         for (RabbitCircle rabbit : mRabbits) {
             if (mAliveRabbits < 6 && rabbit.getState() == RabbitCircle.DIED

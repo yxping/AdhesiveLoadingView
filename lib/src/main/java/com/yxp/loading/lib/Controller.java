@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.View;
 
+import com.yxp.loading.lib.anim.TextAnimator;
 import com.yxp.loading.lib.anim.LoopCircleAnimator;
 import com.yxp.loading.lib.anim.SmallAndDropAnimator;
 
@@ -16,6 +17,7 @@ import com.yxp.loading.lib.anim.SmallAndDropAnimator;
 public class Controller {
     private LoopCircleAnimator mLoopCircleAnim;
     private SmallAndDropAnimator mSapAnim;
+    private TextAnimator mDropAnim;
     private AnimatorSet mAnimSet;
 
     public Controller(View view) {
@@ -25,6 +27,7 @@ public class Controller {
         mAnimSet = new AnimatorSet();
         mLoopCircleAnim = new LoopCircleAnimator(view);
         mSapAnim = new SmallAndDropAnimator(view, mLoopCircleAnim.getWolf());
+        mDropAnim = new TextAnimator(view, mSapAnim.getBead());
         mAnimSet.play(mLoopCircleAnim).before(mSapAnim);
         mAnimSet.start();
         mAnimSet.addListener(new AnimatorListenerAdapter() {

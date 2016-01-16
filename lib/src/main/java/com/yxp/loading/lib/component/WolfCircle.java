@@ -53,12 +53,19 @@ public class WolfCircle extends Circle {
         mouthDegree = degree % 59;
     }
 
+    boolean isSmaller = false;
     /**
      * change the radius to change size
-     * @param level
+     * @param size
      */
-    public void changeSize(int level) {
-        radius = mOriginR + level * 2;
+    @Override
+    public void smaller(int size) {
+        radius = mOriginR - size;
+    }
+
+    @Override
+    public void bigger(int size) {
+        radius = mOriginR + size;
     }
 
     public int getOriginR() {

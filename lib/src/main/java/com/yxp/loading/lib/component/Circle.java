@@ -51,15 +51,26 @@ public abstract class Circle {
 
     }
 
-    public void changeSize(int level) {
+    public void bigger(int size) {
 
     }
 
+    public void smaller(int size) {
+
+    }
     public int getDegree() {
         return degree;
     }
 
     public int getRadius() {
         return radius;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }
