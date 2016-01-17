@@ -20,6 +20,7 @@ import java.util.ArrayList;
  * Created by yanxing on 16/1/12.
  */
 public class LoopCircleAnimator extends ValueAnimator {
+    public final static int DURATION = Config.DURATION_LOOP;
     private View mView;
     private ArrayList<RabbitCircle> mRabbits = new ArrayList<>();
     private WolfCircle mWolf;
@@ -70,7 +71,7 @@ public class LoopCircleAnimator extends ValueAnimator {
     private void initAnimator() {
 
         this.setIntValues(0, 360);
-        this.setDuration(2000);
+        this.setDuration(DURATION);
         this.setInterpolator(new AccelerateDecelerateInterpolator());
         this.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override

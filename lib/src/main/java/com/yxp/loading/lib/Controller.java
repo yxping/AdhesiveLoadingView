@@ -17,7 +17,7 @@ import com.yxp.loading.lib.anim.SmallAndDropAnimator;
 public class Controller {
     private LoopCircleAnimator mLoopCircleAnim;
     private SmallAndDropAnimator mSapAnim;
-    private TextAnimator mDropAnim;
+    private TextAnimator mTextAnim;
     private AnimatorSet mAnimSet;
 
     public Controller(View view) {
@@ -27,8 +27,9 @@ public class Controller {
         mAnimSet = new AnimatorSet();
         mLoopCircleAnim = new LoopCircleAnimator(view);
         mSapAnim = new SmallAndDropAnimator(view, mLoopCircleAnim.getWolf());
-        mDropAnim = new TextAnimator(view, mSapAnim.getBead());
-        mAnimSet.play(mLoopCircleAnim).before(mSapAnim);
+        mTextAnim = new TextAnimator(view);
+        // 顺序播放
+        mAnimSet.playSequentially(mLoopCircleAnim, mSapAnim, mTextAnim);
         mAnimSet.start();
         mAnimSet.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -39,16 +40,21 @@ public class Controller {
     }
 
     public void initConfig(View view) {
+//        Config.CENTER_X = view.getWidth() / 2;
+//        Config.CENTER_Y = view.getHeight() / 2;
+//        Config.START_X = view.getWidth() / 2;
+//        Config.START_Y = view.getHeight() / 5;
         Config.CENTER_X = view.getWidth() / 2;
-        Config.CENTER_Y = view.getHeight() / 2;
+        Config.CENTER_Y = view.getWidth() / 2;
         Config.START_X = view.getWidth() / 2;
-        Config.START_Y = view.getHeight() / 5;
+        Config.START_Y = view.getWidth() / 5;
         Config.BIG_CIRCLE_RADIUS = Config.CENTER_X - Config.START_Y;
     }
 
     public void draw(Canvas canvas, Paint paint) {
         mLoopCircleAnim.draw(canvas, paint);
         mSapAnim.draw(canvas, paint);
+        mTextAnim.draw(canvas, paint);
     }
 
 }

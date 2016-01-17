@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class AdhesionLoadingView extends View {
     public final static int DEFAULT_WIDTH = 200;
-    public final static int DEFAULT_HEIGHT = 200;
+    public final static int DEFAULT_HEIGHT = 230;
 
     private Controller mController;
     private boolean isInit = false;

@@ -12,24 +12,23 @@ public class RabbitCircle extends Circle {
     public final static int DIED = 1;
     public final static int ALIVE = 2;
     public final static int DANGER = 3;
+    /**
+     * 记录当前状态,不同状态执行不同的动作
+     */
     private int state = DIED;
+
+    /**
+     * 震动的偏移距离
+     */
+    private int mVibration = 4;
+    private int mVibrationMax = 2 * mVibration + 1;
     private Random mRandom = new Random();
+
     private int mShiftX;
     private int mShiftY;
 
-    public RabbitCircle() {
-    }
-
-    public RabbitCircle(int x, int y, int r) {
-        super(x, y, r);
-    }
-
     public RabbitCircle(int x, int y, int r, int degree) {
         super(x, y, r, degree);
-    }
-
-    public RabbitCircle(int x, int y, int r, int degree, int color) {
-        super(x, y, r, degree, color);
     }
 
     @Override
@@ -41,8 +40,9 @@ public class RabbitCircle extends Circle {
             canvas.drawCircle(x, y, radius, paint);
             canvas.restore();
         } else if (state == DANGER) {
-            mShiftX = mRandom.nextInt(5) - 2;
-            mShiftY = mRandom.nextInt(5) - 2;
+            // 当处于危险状态的时候进行震动的绘制
+            mShiftX = mRandom.nextInt(mVibrationMax) - mVibration;
+            mShiftY = mRandom.nextInt(mVibrationMax) - mVibration;
             canvas.save();
             canvas.rotate(degree, cx, cy);
             paint.setColor(color);

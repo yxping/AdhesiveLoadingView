@@ -13,5 +13,13 @@ public class Config {
     public static int CENTER_X;
     public static int CENTER_Y;
     public static int BIG_CIRCLE_RADIUS;
+    public static int BASELINE;
+
+    // 旋转时间
+    public static int DURATION_LOOP = 1300;
+    // 缩小下落时间
+    public static int DURATION_DROP = 1200;
+    // 字体弹出时间
+    public static int DURATION_TEXT = 200;
 
 }

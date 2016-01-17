@@ -18,6 +18,7 @@ import com.yxp.loading.lib.component.WolfCircle;
  * Created by yanxing on 16/1/12.
  */
 public class SmallAndDropAnimator extends ValueAnimator {
+    public final static int DURATION = Config.DURATION_DROP;
     private WolfCircle mCircle;
     private View mView;
     // 水滴
@@ -32,14 +33,16 @@ public class SmallAndDropAnimator extends ValueAnimator {
         mCircle = circle;
         mView = view;
         mixDis = circle.getRadius();
-        mDis = Config.CENTER_Y + Config.BIG_CIRCLE_RADIUS - Config.START_Y + mixDis;
-        initAnim();
+//        mDis = Config.CENTER_Y + Config.BIG_CIRCLE_RADIUS - Config.START_Y + mixDis;
+        mDis = view.getHeight() - mixDis;
+        Config.BASELINE = mDis;
         mBead = new BeadCircle(Config.START_X, Config.START_Y, 0);
         mPath = new Path();
+        initAnim();
     }
 
     public void initAnim() {
-        this.setDuration(1500);
+        this.setDuration(DURATION);
         // flatten distance
         final int flattenDis = mixDis / 4;
         final int preFlattenDis = mixDis - flattenDis;
