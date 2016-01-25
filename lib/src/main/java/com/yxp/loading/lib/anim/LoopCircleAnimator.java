@@ -16,7 +16,7 @@ import com.yxp.loading.lib.component.WolfCircle;
 import java.util.ArrayList;
 
 /**
- * 负责圆圈的旋转
+ * 负责圆圈的旋转,利用度数来绘制六个圆点,同时通过度数来绘制运动的圆点.
  * Created by yanxing on 16/1/12.
  */
 public class LoopCircleAnimator extends ValueAnimator {
@@ -110,7 +110,13 @@ public class LoopCircleAnimator extends ValueAnimator {
         }
     }
 
+    /**
+     * 黏着效果实现
+     *
+     * @param distance
+     */
     private void updatePath(int distance){
+        // TODO 塞贝尔曲线还有一些问题,由于是通过旋转角度实现两个圆点之间的链接,所以会有偏差,现在暂且通过微调解决
         mPath.reset();
         int x1 = startX - distance;
         int y1 = startY - mRabbits.get(0).getRadius() + 2;
@@ -152,7 +158,6 @@ public class LoopCircleAnimator extends ValueAnimator {
     }
 
     public void drawPath(Canvas canvas, Paint paint) {
-//        paint.setColor(Color.RED);
         paint.setColor(Color.BLACK);
         canvas.save();
         canvas.rotate(mPathDegree, centerX, centerY);

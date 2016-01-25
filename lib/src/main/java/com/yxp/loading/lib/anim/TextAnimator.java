@@ -44,7 +44,7 @@ public class TextAnimator extends ValueAnimator {
     private void initConfig() {
         initWord();
         curIndex = 0;
-        mTextSize = mView.getWidth() / (word.length - 1);
+        mTextSize = mView.getWidth() / (STR.length() - 2);
         mBaseLine = Config.BASELINE;
         mScaleSize = 30;
         mPaint = new Paint();
@@ -149,7 +149,9 @@ public class TextAnimator extends ValueAnimator {
         }
     }
 
-
+    /**
+     * 重置文字的距离
+     */
     private void resetText() {
         if (texts != null) {
             for (Text text : texts) {

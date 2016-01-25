@@ -18,7 +18,7 @@ public class Config {
     // 旋转时间
     public static int DURATION_LOOP = 1300;
     // 缩小下落时间
-    public static int DURATION_DROP = 1200;
+    public static int DURATION_DROP = 1000;
     // 字体弹出时间
     public static int DURATION_TEXT = 200;
 

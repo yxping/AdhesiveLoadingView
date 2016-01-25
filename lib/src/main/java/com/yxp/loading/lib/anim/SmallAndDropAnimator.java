@@ -10,11 +10,11 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 
 import com.yxp.loading.lib.component.BeadCircle;
-import com.yxp.loading.lib.component.Circle;
 import com.yxp.loading.lib.Config;
 import com.yxp.loading.lib.component.WolfCircle;
 
 /**
+ * 缩小和下落压缩的动画
  * Created by yanxing on 16/1/12.
  */
 public class SmallAndDropAnimator extends ValueAnimator {

@@ -40,10 +40,6 @@ public class Controller {
     }
 
     public void initConfig(View view) {
-//        Config.CENTER_X = view.getWidth() / 2;
-//        Config.CENTER_Y = view.getHeight() / 2;
-//        Config.START_X = view.getWidth() / 2;
-//        Config.START_Y = view.getHeight() / 5;
         Config.CENTER_X = view.getWidth() / 2;
         Config.CENTER_Y = view.getWidth() / 2;
         Config.START_X = view.getWidth() / 2;
