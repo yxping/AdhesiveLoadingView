@@ -45,6 +45,9 @@ public class LoopCircleAnimator extends ValueAnimator {
         mPath = new Path();
     }
 
+    /**
+     * 设置六个圆点以及运动的圆点
+     */
     private void initComponent() {
 
         startX = Config.START_X;
@@ -68,6 +71,9 @@ public class LoopCircleAnimator extends ValueAnimator {
 
     }
 
+    /**
+     * 设置animator的参数
+     */
     private void initAnimator() {
 
         this.setIntValues(0, 360);
@@ -84,11 +90,15 @@ public class LoopCircleAnimator extends ValueAnimator {
         });
     }
 
+    /**
+     * 开始运动,目的是旋转一圈,所以是从0-360度
+     * @param degree
+     */
     private void startActivities(int degree) {
         mWolf.runTo(degree);
-
+        // 运动小球增大
         mWolf.bigger(degree / Config.DEGREE_GAP * 2);
-
+        // 这里有一个细节动作,当运动小球靠近时,静止的圆点会进行一个震动.震动是通过设置其状态来完成的
         for (RabbitCircle rabbit : mRabbits) {
             if (mAliveRabbits < 6 && rabbit.getState() == RabbitCircle.DIED
                     && rabbit.getDegree() < degree) {
@@ -111,7 +121,7 @@ public class LoopCircleAnimator extends ValueAnimator {
     }
 
     /**
-     * 黏着效果实现
+     * 黏着效果实现,这里的黏着效果是由4个点完成的,外加两个控制点.
      *
      * @param distance
      */
@@ -143,6 +153,11 @@ public class LoopCircleAnimator extends ValueAnimator {
         mPath.close();
     }
 
+    /**
+     * 绘制圆点
+     * @param canvas
+     * @param paint
+     */
     public void draw(Canvas canvas, Paint paint) {
 
         for (Circle rabbit : mRabbits) {
@@ -157,6 +172,11 @@ public class LoopCircleAnimator extends ValueAnimator {
 
     }
 
+    /**
+     * 绘制黏着部分
+     * @param canvas
+     * @param paint
+     */
     public void drawPath(Canvas canvas, Paint paint) {
         paint.setColor(Color.BLACK);
         canvas.save();

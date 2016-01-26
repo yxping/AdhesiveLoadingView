@@ -41,12 +41,16 @@ public class SmallAndDropAnimator extends ValueAnimator {
         initAnim();
     }
 
+    /**
+     * 初始化动画的配置
+     */
     public void initAnim() {
         this.setDuration(DURATION);
-        // flatten distance
+        // flatten distance 水滴放大的距离
         final int flattenDis = mixDis / 4;
         final int preFlattenDis = mixDis - flattenDis;
         this.setInterpolator(new AccelerateInterpolator(1.5f));
+        // 由于要形成一个下落压缩的效果,所以在VALUE的设置上通过参数高->低->高->恢复这样的效果来实现
         this.setIntValues(Config.START_Y, Config.START_Y + mixDis, mDis - preFlattenDis, mDis + flattenDis);
         this.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override

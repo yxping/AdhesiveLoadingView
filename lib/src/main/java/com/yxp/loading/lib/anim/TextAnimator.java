@@ -11,6 +11,7 @@ import android.view.animation.AccelerateInterpolator;
 import com.yxp.loading.lib.Config;
 
 /**
+ * 字体弹出,向外移动的效果
  * Created by yanxing on 16/1/13.
  */
 public class TextAnimator extends ValueAnimator {
@@ -93,6 +94,7 @@ public class TextAnimator extends ValueAnimator {
     }
 
     protected void initAnim() {
+        // 通过设置参数来实现字体的大小变化,从而实现弹出放大的效果.
         this.setIntValues(0, mTextSize, mTextSize + mScaleSize, 0, mTextSize + mScaleSize / 2, mTextSize);
         this.setDuration(DURATION);
         this.setInterpolator(new AccelerateInterpolator());
@@ -109,7 +111,7 @@ public class TextAnimator extends ValueAnimator {
         this.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
-                // 定格最后的大小
+                // 定格最后字母的大小
                 if (curIndex > 0 && curIndex <= word.length) {
                     texts[curIndex - 1].setSize(mTextSize);
                 }
@@ -135,8 +137,12 @@ public class TextAnimator extends ValueAnimator {
             paint.setTextSize(texts[i].size);
             if (i == curIndex - 1) {
                 paint.setTextAlign(Paint.Align.CENTER);
+                // 绘制中间的字母
                 canvas.drawText(texts[i].content, texts[i].x, mBaseLine, paint);
             } else {
+                // 由于文字绘制的原点影响了文字的间距,因为文字的宽度都是通过align.right进行一个间距的计算的,所以
+                // 当以中心为绘制原点的时候,相同的间距会变成原来的一半,这样就会导致间距缩小,尤其是小字体像i等,所以通过
+                // 设置不同的绘制原点,加上不同的位移来解决这个问题.
                 paint.setTextAlign(Paint.Align.LEFT);
                     if (texts[i].direction == Text.DIRECTION_RIGHT) {
                         canvas.drawText(texts[i].content,
@@ -160,6 +166,9 @@ public class TextAnimator extends ValueAnimator {
         }
     }
 
+    /**
+     * 字母状态
+     */
     private class Text{
         public final static int DIRECTION_RIGHT = 1;
         public final static int DIRECTION_LEFT = 2;

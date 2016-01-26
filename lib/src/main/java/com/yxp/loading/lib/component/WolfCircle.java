@@ -53,7 +53,6 @@ public class WolfCircle extends Circle {
         mouthDegree = degree % 59;
     }
 
-    boolean isSmaller = false;
     /**
      * change the radius to change size
      * @param size
