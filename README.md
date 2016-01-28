@@ -6,7 +6,7 @@
 ![](https://github.com/yxping/AdhesiveLoadingView/raw/master/half2.gif)
 
 # 项目结构
-![](https://github.com/yxping/AdhesiveLoadingView/raw/master/structure.gif)
+![](https://github.com/yxping/AdhesiveLoadingView/raw/master/structure.png)
 这个动画包括了三个过程： 
   1.小球旋转放大，其中还有震动效果 
   2.小球缩小衍生水滴，迅速跌落 
